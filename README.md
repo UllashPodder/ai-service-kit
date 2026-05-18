@@ -1,4 +1,4 @@
-# 🚀 AI Service Kit
+#⚙️ AI Service Kit
 
 > A comprehensive Swift framework for seamlessly integrating AI services into your iOS, macOS, and cross-platform applications.
 
