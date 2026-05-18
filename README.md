@@ -1,154 +1,58 @@
 ## ⚙️ AI Service Kit
 
-> A comprehensive Swift framework for seamlessly integrating AI services into your iOS, macOS, and cross-platform applications.
+> Protocol-first Swift package for **on-device** speech transcription and summarization. No cloud, no API keys, no data leaving the device.
+
+Built for [Debrief](https://github.com/UllashPodder/debrief) — a local-first
+AI voice notes app for iOS.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Swift](https://img.shields.io/badge/Swift-5.0+-orange?logo=swift)](https://swift.org)
 [![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20macOS%20%7C%20watchOS-blue)](#)
 
-## ✨ Features
+## Why
 
-- 🤖 **Unified AI Interface** - Single API for multiple AI service providers
-- 🔌 **Plugin Architecture** - Extensible design for custom implementations
-- 🛡️ **Type-Safe** - Full Swift type safety with modern async/await support
-- ⚡ **Lightweight** - Minimal dependencies for maximum flexibility
-- 🔄 **Request Caching** - Built-in caching layer for optimized performance
-- 🧪 **Testable** - Mock implementations for easy unit testing
-- 📱 **Cross-Platform** - Support for iOS, macOS, watchOS, and tvOS
-- 🔐 **Secure** - Credential management best practices
+Cloud AI for voice notes means latency, per-token cost, and privacy risk.
+This package abstracts on-device ASR and LLM summarization behind clean
+protocols so the app never touches a vendor SDK directly.
+
+## Architecture
+
+- `AIServiceKit` — protocols only (`AITranscriber`, `AISummarizer`), zero dependencies
+- `AIServiceKitWhisper` — `AITranscriber` backed by WhisperKit (on-device Whisper)
+- `AIServiceKitMLX` — `AISummarizer` backed by MLX + Llama 3.2 3B (on-device LLM)
+
+Pick only the targets you need. The protocols target stays dependency-free
+so you can implement your own backend.
+
+## Requirements
+
+- iOS 18+ / macOS 14+
+- Swift 6
+
+## Status
+
+🚧 Active development — V1 in progress (week 1 of 3). API will change.
+
+
 
 ## 🎯 Quick Start
 
-### Installation
+## Install
 
-#### Swift Package Manager
+​```swift
+.package(url: "https://github.com/UllashPodder/ai-service-kit.git", from: "0.0.1")
+​```
 
-Add the following to your `Package.swift`:
+## License
 
-```swift
-dependencies: [
-    .package(url: "https://github.com/UllashPodder/ai-service-kit.git", from: "0.1.0")
-]
-```
+MIT — see [LICENSE](LICENSE).
 
-Or in Xcode:
-1. File → Add Packages
-2. Enter: `https://github.com/UllashPodder/ai-service-kit.git`
-3. Select version and add to your project
-
-### Basic Usage
-
-```swift
-import AIServiceKit
-
-// Initialize the AI Service Kit
-let aiService = AIServiceKit.shared
-
-// Make a simple request
-let response = try await aiService.chat(
-    message: "What is Swift?",
-    provider: .openAI
-)
-
-print(response.text)
-```
-
-## 📚 Documentation
-
-### Supported Providers
-
-- OpenAI (GPT-4, GPT-3.5-turbo)
-- Google Gemini
-- Anthropic Claude
-- Local LLM Models
-
-### Configuration
-
-```swift
-// Configure with your API credentials
-let config = AIServiceConfiguration(
-    apiKey: "your-api-key",
-    baseURL: URL(string: "https://api.openai.com/v1")!
-)
-
-aiService.configure(with: config)
-```
-
-### Advanced Usage
-
-```swift
-// Stream responses
-for try await chunk in aiService.stream(prompt: "Write a poem") {
-    print(chunk)
-}
-
-// Use embeddings
-let embeddings = try await aiService.embed(text: "Hello, World!")
-
-// Vision capabilities
-let analysis = try await aiService.analyzeImage(imageURL, question: "What's in this image?")
-```
-
-## 🏗️ Project Structure
-
-```
-AIServiceKit/
-├── Core/              # Core framework code
-├── Providers/         # AI service provider implementations
-├── Models/            # Data models and types
-├── Utils/             # Utility functions and helpers
-└── Tests/             # Test suite
-```
-
-## 🔧 Requirements
-
-- **iOS** 13.0+
-- **macOS** 10.15+
-- **watchOS** 6.0+
-- **tvOS** 13.0+
-- **Swift** 5.7+
-
-## 💡 Examples
-
-Check out the [Examples](./Examples) directory for complete sample projects:
-
-- Chat Application
-- Image Analysis
-- Embedding Generation
-- Streaming Responses
-- Error Handling
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-### Development Setup
-
-```bash
-git clone https://github.com/UllashPodder/ai-service-kit.git
-cd ai-service-kit
-swift build
-swift test
-```
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙋 Support
 
-- 📖 [Documentation](./docs)
 - 🐛 [Report Issues](https://github.com/UllashPodder/ai-service-kit/issues)
 - 💬 [Discussions](https://github.com/UllashPodder/ai-service-kit/discussions)
 
-## 🚀 Roadmap
-
-- [ ] Support for more AI providers
-- [ ] Advanced caching strategies
-- [ ] Performance monitoring and analytics
-- [ ] Rate limiting and throttling
-- [ ] Offline mode support
-- [ ] Enhanced error recovery
 
 ## ⭐ Show Your Support
 
