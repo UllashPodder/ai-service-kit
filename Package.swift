@@ -1,6 +1,4 @@
 // swift-tools-version: 6.0
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
 import PackageDescription
 
 let package = Package(
@@ -10,17 +8,27 @@ let package = Package(
         .macOS(.v14),
     ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "AIServiceKit",
-            targets: ["AIServiceKit"]
-        ),
+        .library(name: "AIServiceKit",       targets: ["AIServiceKit"]),
+        .library(name: "AIServiceKitWhisper", targets: ["AIServiceKitWhisper"]),
+        .library(name: "AIServiceKitMLX",     targets: ["AIServiceKitMLX"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/argmaxinc/WhisperKit", branch: "main"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "AIServiceKit"
+        ),
+        .target(
+            name: "AIServiceKitWhisper",
+            dependencies: [
+                "AIServiceKit",
+                .product(name: "WhisperKit", package: "WhisperKit"),
+            ]
+        ),
+        .target(
+            name: "AIServiceKitMLX",
+            dependencies: ["AIServiceKit"]
         ),
         .testTarget(
             name: "AIServiceKitTests",
