@@ -14,6 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/argmaxinc/WhisperKit", branch: "main"),
+        .package(url: "https://github.com/ml-explore/mlx-swift-examples", exact: "2.29.1"),
     ],
     targets: [
         .target(
@@ -28,7 +29,11 @@ let package = Package(
         ),
         .target(
             name: "AIServiceKitMLX",
-            dependencies: ["AIServiceKit"]
+            dependencies: [
+                "AIServiceKit",
+                .product(name: "MLXLLM", package: "mlx-swift-examples"),
+                .product(name: "MLXLMCommon", package: "mlx-swift-examples"),
+            ]
         ),
         .testTarget(
             name: "AIServiceKitTests",
