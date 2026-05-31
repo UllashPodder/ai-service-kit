@@ -41,7 +41,7 @@ dependency-free.
 - [x] Protocols defined (AITranscriber, AISummarizer, SummaryFormat)
 - [x] Three-target package structure, public on GitHub, MIT
 - [x] Package.swift at repo root, tools-version 6.0
-- [ ] WhisperKitTranscriber implementation
+- [x] WhisperKitTranscriber implementation
 - [ ] MLXLlamaSummarizer implementation + SummaryPrompts
 
 ## Next (in order)
