@@ -60,6 +60,12 @@ dependency-free.
   commented-out dead code, no AI-generated filler in comments or README.
 - Keep public API surface minimal. Don't add public symbols "just in case."
 
+## Git rules (enforced in .claude/settings.json)
+- Read, write, edit files freely — no permission needed
+- `git diff`, `git status`, `git log` — fine
+- `git add` — fine
+- `git commit`, `git push`, `git tag` — BLOCKED. Ullash commits manually.
+
 ## Code standards (higher bar than the app)
 - Doc comment (/// ...) on every public type, method, and property
 - Prefer protocols + structs over classes
